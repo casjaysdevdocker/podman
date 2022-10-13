@@ -172,7 +172,7 @@ podman | docker)
 
 *) # Execute primary command
   if [ $# -eq 0 ]; then
-    podman info
+    podman-tui
     exit ${exitCode:-$?}
   else
     __exec_command "$@"
