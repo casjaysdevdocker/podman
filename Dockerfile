@@ -25,6 +25,7 @@ RUN set -ex; \
   podman-docker \
   podman-tui && \
   rc-update add podman default && \
+  touch /etc/containers/nodocker && \
   cp -Rf "/etc/containers/." "/usr/local/share/template-files/config/defaults/containers/"
 
 COPY ./bin/. /usr/local/bin/
