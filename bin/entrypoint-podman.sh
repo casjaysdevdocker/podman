@@ -144,7 +144,7 @@ if [ -d "/config" ] || [ -n "$(__find "/config" 2>/dev/null)" ]; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional commands
-cat <<EOF >"/root/podman-tui/podman-tui.conf"
+cat <<EOF >"/root/.config/podman-tui/podman-tui.conf"
 [services]
 
   [services.localhost]
