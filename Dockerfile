@@ -18,9 +18,12 @@ RUN set -ex; \
   echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/community" >> "/etc/apk/repositories"; \
   if [ "$alpine_version" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/testing" >> "/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add \
+  openrc
+  podman-openrc
   podman \
   podman-docker \
-  podman-tui
+  podman-tui &&
+  rc-update add podman default
 
 COPY ./bin/. /usr/local/bin/
 COPY ./data/. /usr/local/share/template-files/data/
@@ -66,7 +69,7 @@ VOLUME [ "/config","/data" ]
 
 EXPOSE $PORTS
 
-ENTRYPOINT [ "tini", "-p", "SIGTERM", "--" ]
+ENTRYPOINT [ "/sbin/init" ]
 CMD [ "/usr/local/bin/entrypoint-podman.sh" ]
 HEALTHCHECK --start-period=1m --interval=2m --timeout=3s CMD [ "/usr/local/bin/entrypoint-podman.sh", "healthcheck" ]
 
