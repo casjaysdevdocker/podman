@@ -108,6 +108,7 @@ fi
 # Create directories
 [ -d "/etc/ssl" ] || mkdir -p "/etc/ssl"
 [ -d "/usr/local/bin" ] && rm -Rf "/usr/local/bin/.gitkeep"
+[ -d "/root/.config/podman-tui" ] || mkdir -p "/root/.config/podman-tui"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ "$SSL_ENABLED" = "true" ] || [ "$SSL_ENABLED" = "yes" ]; then
   if [ -f "/config/ssl/server.crt" ] && [ -f "/config/ssl/server.key" ]; then
@@ -143,6 +144,14 @@ if [ -d "/config" ] || [ -n "$(__find "/config" 2>/dev/null)" ]; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional commands
+cat <<EOF >"/root/podman-tui/podman-tui.conf"
+[services]
+
+  [services.localhost]
+    default = true
+    uri = "unix://run/podman/podman.sock"
+
+EOF
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 case "$1" in

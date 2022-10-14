@@ -18,6 +18,7 @@ RUN set -ex; \
   echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/community" >> "/etc/apk/repositories"; \
   if [ "$alpine_version" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/testing" >> "/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add \
+  devtools \
   openrc \
   podman-openrc \
   podman \
@@ -59,7 +60,10 @@ ENV SHELL="/bin/bash" \
   TIMEZONE="$$TIMEZONE" \
   PHP_SERVER="none" \
   PORT="" \
-  DISPLAY=${DISPLAY}
+  DOCKER_BUILDKIT=0 \
+  DOCKER_HOST="unix://run/podman/podman.sock" \
+  DISPLAY=${DISPLAY} \
+  CONTAINER_PASSPHRASE=""
 
 COPY --from=build /. /
 
