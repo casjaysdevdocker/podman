@@ -14,6 +14,7 @@ ENV TZ="$TIMEZONE" \
 
 RUN set -ex; \
   rm -Rf "/etc/apk/repositories"; \
+  mkdir -p "/usr/local/share/template-files/config/defaults/containers" && \
   echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/main" >> "/etc/apk/repositories"; \
   echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/community" >> "/etc/apk/repositories"; \
   if [ "$alpine_version" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/testing" >> "/etc/apk/repositories" ; fi ; \
@@ -23,7 +24,8 @@ RUN set -ex; \
   podman \
   podman-docker \
   podman-tui && \
-  rc-update add podman default
+  rc-update add podman default && \
+  cp -Rf "/etc/containers/." "/usr/local/share/template-files/config/defaults/containers/"
 
 COPY ./bin/. /usr/local/bin/
 COPY ./data/. /usr/local/share/template-files/data/

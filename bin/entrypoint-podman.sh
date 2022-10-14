@@ -97,14 +97,6 @@ fi
 [ -d "/data" ] && rm -Rf "/data/.gitkeep" "/data"/*/*.gitkeep
 [ -d "/config" ] && rm -Rf "/config/.gitkeep" "/data"/*/*.gitkeep
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Setup bin directory
-if [ -d "/config/bin" ]; then
-  for bin in /config/bin/*; do
-    name="$(basename "$bin")"
-    ln -sf "$bin" "/usr/local/bin/$name"
-  done
-fi
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Create directories
 [ -d "/etc/ssl" ] || mkdir -p "/etc/ssl"
 [ -d "/usr/local/bin" ] && rm -Rf "/usr/local/bin/.gitkeep"
@@ -129,7 +121,7 @@ fi
 [ -f "$SSL_CERT" ] && cp -Rfv "$SSL_CERT" "/etc/ssl/server.crt"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Create default config
-if [ ! -e "/config/$APPNAME" ] && [ -e "$DEFAULT_CONF_DIR/$APPNAME" ]; then
+if [ ! -e "/config/containers" ] && [ -e "$DEFAULT_CONF_DIR/containers" ]; then
   cp -Rf "$DEFAULT_CONF_DIR/$APPNAME" "/config/$APPNAME"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
