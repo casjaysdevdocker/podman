@@ -27,7 +27,6 @@ RUN set -ex; \
   device-mapper \
   fuse-overlayfs && \
   rc-update add podman default && \
-  rc-update add cgroups default && \
   touch /etc/containers/nodocker && \
   cp -Rf "/etc/containers/." "/usr/local/share/template-files/config/defaults/containers/"
 
