@@ -20,11 +20,13 @@ RUN set -ex; \
   if [ "$alpine_version" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/$alpine_version/testing" >> "/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add \
   openrc \
-  podman-openrc \
   podman \
+  podman-tui \
   podman-docker \
-  podman-tui && \
-  rc-update add podman default && \
+  podman-openrc \
+  device-mapper \
+  fuse-overlayfs && \
+  rc-update add podman cgroups && \
   touch /etc/containers/nodocker && \
   cp -Rf "/etc/containers/." "/usr/local/share/template-files/config/defaults/containers/"
 
