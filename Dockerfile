@@ -66,7 +66,6 @@ ENV SHELL="/bin/bash" \
   PORT="" \
   DOCKER_BUILDKIT=0 \
   DOCKER_HOST="unix://run/podman/podman.sock" \
-  DISPLAY=${DISPLAY} \
   CONTAINER_PASSPHRASE=""
 
 COPY --from=build /. /
